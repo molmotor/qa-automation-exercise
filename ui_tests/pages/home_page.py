@@ -13,6 +13,3 @@ class HomePage:
 
     def click_signup_login(self):
         self.page.get_by_role('link', name='Signup / Login').click()
-
-    def is_new_user_signup_showing(self):
-        return self.page.get_by_role('heading', name='New user signup!')     

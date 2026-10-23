@@ -1,4 +1,5 @@
 from config import AUTH_URL
+from utils.data_generator import generate_user
 
 
 class AuthPage:

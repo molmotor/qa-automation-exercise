@@ -21,3 +21,6 @@ def test_signup_advances_to_account_information(page):
     auth_page.click_signup()
 
     assert auth_page.is_account_information_showing()
+
+def test_enter_account_information(page):
+    

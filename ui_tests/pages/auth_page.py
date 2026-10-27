@@ -8,10 +8,11 @@ class AuthPage:
     def load(self):
         self.page.goto(AUTH_URL)
 
+    # Signup
     def enter_name(self, name):
         self.page.locator("[data-qa='signup-name']").fill(name)
 
-    def enter_email(self, email):
+    def enter_signup_email(self, email):
         self.page.locator("[data-qa='signup-email']").fill(email)
 
     def click_signup(self):
@@ -70,11 +71,25 @@ class AuthPage:
     def click_continue_button(self):
         self.page.locator("[data-qa='continue-button']").click()
 
+    # After login / account actions
     def logged_in_as_label(self):
         return self.page.get_by_text("Logged in as")
+
+    def click_logout(self):
+        self.page.get_by_role("link", name="Logout").click()
 
     def click_delete_account_button(self):
         self.page.get_by_role("link", name="Delete Account").click()
 
-    def is_account_deleted_showing(self):
-        return self.page.locator("[data-qa='account-deleted']").is_visible()   
+    def account_deleted_message(self):
+        return self.page.locator("[data-qa='account-deleted']")
+
+    # Login
+    def enter_login_email(self, email):
+        self.page.locator("[data-qa='login-email']").fill(email)
+
+    def enter_login_password(self, password):
+        self.page.locator("[data-qa='login-password']").fill(password)
+
+    def click_login_button(self):
+        self.page.locator("[data-qa='login-button']").click()

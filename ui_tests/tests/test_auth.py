@@ -55,3 +55,13 @@ def test_login_user(page, registered_user):
     auth_page.click_login_button()
 
     expect(auth_page.logged_in_as_label()).to_be_visible()
+
+
+def test_login_incorrect_creds(page):
+    auth_page = AuthPage(page)
+    auth_page.load()
+    auth_page.enter_login_email("wrong@example.com")
+    auth_page.enter_login_password("wrongpassword")
+    auth_page.click_login_button()
+
+    expect(auth_page.login_error_message()).to_be_visible()

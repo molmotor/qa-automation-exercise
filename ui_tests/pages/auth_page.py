@@ -84,7 +84,7 @@ class AuthPage:
     def account_deleted_message(self):
         return self.page.locator("[data-qa='account-deleted']")
 
-    # Login
+    # Login (the test decides whether the values are correct or wrong)
     def enter_login_email(self, email):
         self.page.locator("[data-qa='login-email']").fill(email)
 
@@ -93,3 +93,6 @@ class AuthPage:
 
     def click_login_button(self):
         self.page.locator("[data-qa='login-button']").click()
+
+    def login_error_message(self):
+        return self.page.get_by_text("Your email or password is incorrect!")

@@ -12,4 +12,7 @@ class HomePage:
         return self.page.locator("#slider-carousel").is_visible()
 
     def click_signup_login(self):
-        self.page.get_by_role('link', name='Signup / Login').click()
+        self.page.get_by_role("link", name="Signup / Login").click()
+
+    def click_products_button(self):
+        self.page.locator("header a[href='/products']").click()

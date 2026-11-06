@@ -25,9 +25,10 @@ class HomePage:
 
     def add_products_to_cart(self):
         products = self.page.locator(".features_items .product-image-wrapper")
-        products.nth(0).get_by_role("link", name="Add to cart").click()
+        products.nth(0).locator(".productinfo .add-to-cart").click()
         self.page.get_by_role("button", name="Continue Shopping").click()
-        products.nth(1).get_by_role("link", name="Add to cart").click()
+        products.nth(1).locator(".productinfo .add-to-cart").click()
+        self.page.get_by_role("button", name="Continue Shopping").click()
 
     def click_cart_button(self):
         self.page.locator("header a[href='/view_cart']").click()

@@ -54,7 +54,7 @@ def test_register_checkout_download_invoice_and_delete_account(page, tmp_path):
     home_page.add_products_to_cart()
 
     cart_page = CartPage(page)
-    cart_page.click_cart_button()
+    home_page.click_cart_button()
     assert cart_page.is_cart_showing()
     cart_page.click_proceed_to_checkout()
     cart_page.click_register_login()
@@ -67,7 +67,7 @@ def test_register_checkout_download_invoice_and_delete_account(page, tmp_path):
     assert auth_page.is_account_information_showing()
     auth_page.enter_account_information(**user)
     auth_page.click_create_account()
-    expect(auth_page.account_created_message()).to_contain_text("ACCOUNT CREATED!")
+    expect(auth_page.account_created_message()).to_contain_text("Account Created!")
     auth_page.click_continue_button()
     expect(auth_page.logged_in_as_label()).to_contain_text("Portfolio Test")
 
@@ -89,9 +89,8 @@ def test_register_checkout_download_invoice_and_delete_account(page, tmp_path):
         year="2030",
     )
     checkout_page.click_pay_and_confirm_order()
-    expect(checkout_page.order_placed_message()).to_contain_text(
-        "Your order has been placed successfully!"
-    )
+    expect(checkout_page.order_placed_message()).to_contain_text("Order Placed!")
+    expect(checkout_page.order_confirmation_message()).to_be_visible()
 
     with page.expect_download() as download_info:
         checkout_page.download_invoice().click()
@@ -103,5 +102,5 @@ def test_register_checkout_download_invoice_and_delete_account(page, tmp_path):
 
     checkout_page.click_continue()
     auth_page.click_delete_account_button()
-    expect(auth_page.account_deleted_message()).to_contain_text("ACCOUNT DELETED!")
+    expect(auth_page.account_deleted_message()).to_contain_text("Account Deleted!")
     auth_page.click_continue_button()

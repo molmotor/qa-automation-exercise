@@ -9,7 +9,7 @@ class CheckoutPage:
         return self.page.get_by_role("heading", name="Review Your Order")
 
     def order_rows(self):
-        return self.page.locator("#cart_info tbody tr")
+        return self.page.locator("#cart_info tbody tr:has(.cart_description)")
 
     def enter_comment(self, comment):
         self.page.locator("textarea[name='message']").fill(comment)
@@ -29,6 +29,9 @@ class CheckoutPage:
 
     def order_placed_message(self):
         return self.page.locator("[data-qa='order-placed']")
+
+    def order_confirmation_message(self):
+        return self.page.get_by_text("Congratulations! Your order has been confirmed!")
 
     def download_invoice(self):
         return self.page.get_by_role("link", name="Download Invoice")

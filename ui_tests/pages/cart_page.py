@@ -15,7 +15,7 @@ class CartPage:
         return self.product_rows().nth(row).locator(".cart_quantity button")
 
     def click_proceed_to_checkout(self):
-        self.page.get_by_role("link", name="Proceed To Checkout").click()
+        self.page.locator(".check_out").click()
 
     def click_register_login(self):
         self.page.get_by_role("link", name="Register / Login").click()

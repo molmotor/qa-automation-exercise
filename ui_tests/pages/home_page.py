@@ -1,4 +1,4 @@
-from config import BASE_URL
+from config import BASE_URL, PROD_URL
 
 
 class HomePage:
@@ -15,7 +15,7 @@ class HomePage:
         self.page.get_by_role("link", name="Signup / Login").click()
 
     def click_products_button(self):
-        self.page.locator("header a[href='/products']").click()
+        self.page.goto(PROD_URL)
 
     def first_product(self):
         return self.page.locator(".features_items .product-image-wrapper").first

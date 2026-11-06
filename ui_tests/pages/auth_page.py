@@ -68,6 +68,9 @@ class AuthPage:
     def is_account_created_showing(self):
         return self.page.locator("[data-qa='account-created']").is_visible()
 
+    def account_created_message(self):
+        return self.page.locator("[data-qa='account-created']")
+
     def click_continue_button(self):
         self.page.locator("[data-qa='continue-button']").click()
 

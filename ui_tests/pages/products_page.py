@@ -16,3 +16,12 @@ class ProductsPage:
 
     def product_names(self):
         return self.page.locator(".features_items .productinfo p").all_text_contents()
+
+    def is_product_detail_showing(self):
+        return self.page.locator(".product-information").is_visible()
+
+    def set_quantity(self, quantity):
+        self.page.locator("#quantity").fill(str(quantity))
+
+    def click_add_to_cart(self):
+        self.page.get_by_role("button", name="Add to cart").click()

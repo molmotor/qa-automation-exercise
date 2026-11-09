@@ -18,13 +18,13 @@ class AuthPage:
     def click_signup(self):
         self.page.locator("[data-qa='signup-button']").click()
 
-    def is_new_user_signup_showing(self):
-        return self.page.get_by_role("heading", name="New User Signup!").is_visible()
+    def new_user_signup_heading(self):
+        return self.page.get_by_role("heading", name="New User Signup!")
 
-    def is_account_information_showing(self):
+    def account_information_heading(self):
         return self.page.get_by_role(
             "heading", name="Enter Account Information"
-        ).is_visible()
+        )
 
     def enter_account_information(
         self,
@@ -64,9 +64,6 @@ class AuthPage:
 
     def click_create_account(self):
         self.page.locator("[data-qa='create-account']").click()
-
-    def is_account_created_showing(self):
-        return self.page.locator("[data-qa='account-created']").is_visible()
 
     def account_created_message(self):
         return self.page.locator("[data-qa='account-created']")

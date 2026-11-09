@@ -5,8 +5,8 @@ class CartPage:
     def click_view_cart(self):
         self.page.get_by_role("link", name="View Cart").click()
 
-    def is_cart_showing(self):
-        return self.page.locator("#cart_info").is_visible()
+    def cart_info(self):
+        return self.page.locator("#cart_info")
 
     def product_rows(self):
         return self.page.locator("#cart_info_table tbody tr")

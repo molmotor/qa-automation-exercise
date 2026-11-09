@@ -25,7 +25,7 @@ The UI test cases follow the site's own [test case list](https://www.automatione
 ## Project structure
 
 ```
-qa-automation-exercice/
+qa-automation-exercise/
 ├── .github/workflows/tests.yml   # CI: runs both suites on every push
 ├── README.md
 ├── test_plan.md
@@ -91,12 +91,11 @@ A GitHub Actions workflow (`.github/workflows/tests.yml`) runs on every push to 
 
 ## Known issues
 
-- **Skipped test:** the checkout flow test (register, checkout, download invoice, delete account) is marked `skip` while I fix the add-to-cart locator.
+- **Retries:** UI tests rerun up to 2 times (`pytest-rerunfailures`) because the public site sometimes returns a "heavy load (queue full)" page. Retries handle external instability, not flaky tests of my own. If a test fails on all 3 attempts, it is a real failure.
+
 - Ad overlays (`#google_vignette`) on the site can occasionally block clicks and cause flaky failures.
 - The site is public and shared, so CI can fail when it is slow or down, and tests may leave data behind if they fail before cleanup.
 
 ## Next steps
 
-- Fix and re-enable the checkout test
-- Use the API to create users in the UI `registered_user` fixture, so login tests are faster
 - More UI cases: logout, register with existing email, cart, contact form

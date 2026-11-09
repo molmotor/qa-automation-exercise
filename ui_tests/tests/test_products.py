@@ -15,7 +15,7 @@ def test_search_product(page):
 
     home_page = HomePage(page)
     home_page.load()
-    assert home_page.is_home_showing()
+    expect(home_page.home_slider()).to_be_visible()
     home_page.click_products_button()
 
     products_page = ProductsPage(page)
@@ -33,29 +33,29 @@ def test_search_product(page):
 def test_product_quantity_in_cart(page):
     home_page = HomePage(page)
     home_page.load()
-    assert home_page.is_home_showing()
+    expect(home_page.home_slider()).to_be_visible()
     home_page.click_first_product_view()
 
     products_page = ProductsPage(page)
-    assert products_page.is_product_detail_showing()
+    expect(products_page.product_information()).to_be_visible()
     products_page.set_quantity(4)
     products_page.click_add_to_cart()
 
     cart_page = CartPage(page)
     cart_page.click_view_cart()
-    assert cart_page.is_cart_showing()
+    expect(cart_page.cart_info()).to_be_visible()
     expect(cart_page.product_quantity()).to_have_text("4")
 
 
 def test_register_checkout_download_invoice_and_delete_account(page, tmp_path):
     home_page = HomePage(page)
     home_page.load()
-    assert home_page.is_home_showing()
+    expect(home_page.home_slider()).to_be_visible()
     home_page.add_products_to_cart()
 
     cart_page = CartPage(page)
     home_page.click_cart_button()
-    assert cart_page.is_cart_showing()
+    expect(cart_page.cart_info()).to_be_visible()
     cart_page.click_proceed_to_checkout()
     cart_page.click_register_login()
 
@@ -64,7 +64,7 @@ def test_register_checkout_download_invoice_and_delete_account(page, tmp_path):
     auth_page.enter_name("Portfolio Test")
     auth_page.enter_signup_email(f"portfolio-{uuid4().hex}@example.com")
     auth_page.click_signup()
-    assert auth_page.is_account_information_showing()
+    expect(auth_page.account_information_heading()).to_be_visible()
     auth_page.enter_account_information(**user)
     auth_page.click_create_account()
     expect(auth_page.account_created_message()).to_contain_text("Account Created!")

@@ -17,8 +17,8 @@ class ProductsPage:
     def product_names(self):
         return self.page.locator(".features_items .productinfo p").all_text_contents()
 
-    def is_product_detail_showing(self):
-        return self.page.locator(".product-information").is_visible()
+    def product_information(self):
+        return self.page.locator(".product-information")
 
     def set_quantity(self, quantity):
         self.page.locator("#quantity").fill(str(quantity))

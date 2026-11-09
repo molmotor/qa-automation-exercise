@@ -8,8 +8,8 @@ class HomePage:
     def load(self):
         self.page.goto(BASE_URL)
 
-    def is_home_showing(self):
-        return self.page.locator("#slider-carousel").is_visible()
+    def home_slider(self):
+        return self.page.locator("#slider-carousel")
 
     def click_signup_login(self):
         self.page.get_by_role("link", name="Signup / Login").click()

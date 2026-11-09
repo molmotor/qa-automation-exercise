@@ -13,7 +13,7 @@ def test_is_new_user_signup_visible(page):
     homepage.click_signup_login()
 
     auth_page = AuthPage(page)
-    assert auth_page.is_new_user_signup_showing()
+    expect(auth_page.new_user_signup_heading()).to_be_visible()
 
 
 def test_signup_advances_to_account_information(page):
@@ -23,7 +23,7 @@ def test_signup_advances_to_account_information(page):
     auth_page.enter_signup_email(f"portfolio-{uuid4().hex}@example.com")
     auth_page.click_signup()
 
-    assert auth_page.is_account_information_showing()
+    expect(auth_page.account_information_heading()).to_be_visible()
 
 
 def test_register_user(page):
@@ -34,11 +34,11 @@ def test_register_user(page):
     auth_page.enter_name("Portfolio Test")
     auth_page.enter_signup_email(f"portfolio-{uuid4().hex}@example.com")
     auth_page.click_signup()
-    assert auth_page.is_account_information_showing()
+    expect(auth_page.account_information_heading()).to_be_visible()
 
     auth_page.enter_account_information(**user)
     auth_page.click_create_account()
-    assert auth_page.is_account_created_showing()
+    expect(auth_page.account_created_message()).to_be_visible()
 
     auth_page.click_continue_button()
     expect(auth_page.logged_in_as_label()).to_be_visible()

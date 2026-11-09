@@ -12,6 +12,8 @@ UI and API test automation for [automationexercise.com](https://www.automationex
 - Register a user, verify "Logged in as", delete the account
 - Login with valid and invalid credentials
 - Search for a product
+- Product quantity in the cart
+- Full checkout: add to cart, register, place order, download invoice, delete account
 
 **API tests** (requests, `api_tests/`)
 - GET all products
@@ -32,7 +34,7 @@ qa-automation-exercise/
 ├── requirements.txt
 ├── ui_tests/
 │   ├── config.py                 # BASE_URL, AUTH_URL
-│   ├── conftest.py               # shared fixtures (registered_user)
+│   ├── conftest.py               # ad blocking, registered_user (created and deleted via API)
 │   ├── pages/                    # page objects: locators and actions
 │   ├── utils/                    # test data generation (Faker)
 │   └── tests/                    # one file per feature area
@@ -87,13 +89,12 @@ A GitHub Actions workflow (`.github/workflows/tests.yml`) runs on every push to 
 - **Locators chosen by what the page exposes.** "Logged in as" is plain text, not a link, so a role-based locator could never match it. Reading Playwright's aria snapshot in the failure output showed this.
 - **Generated test data.** Faker creates names and addresses, and a UUID makes every signup email unique, so tests never collide with existing accounts. Dropdown values (date of birth, country) are fixed, because random values can fail for reasons unrelated to the test.
 - **API error cases assert on the `responseCode` in the response body.** The site often returns HTTP 200 even for errors, so checking only the HTTP status would pass when the API actually rejected the request.
-- **Fixtures create and clean up their own data.** The `api_user` fixture creates an account through the API and deletes it after the test, even if the test fails.
+- **Fixtures create and clean up their own data.** The `api_user` and `registered_user` fixtures create an account through the API and delete it after the test, even if the test fails. The UI login tests use the API for setup, so they are faster and don't depend on the signup form.
 
 ## Known issues
 
 - **Retries:** UI tests rerun up to 2 times (`pytest-rerunfailures`) because the public site sometimes returns a "heavy load (queue full)" page. Retries handle external instability, not flaky tests of my own. If a test fails on all 3 attempts, it is a real failure.
-
-- Ad overlays (`#google_vignette`) on the site can occasionally block clicks and cause flaky failures.
+- Ad overlays (`#google_vignette`) used to block clicks, so an autouse fixture (`block_ads`) now blocks ad requests in every UI test.
 - The site is public and shared, so CI can fail when it is slow or down, and tests may leave data behind if they fail before cleanup.
 
 ## Next steps
